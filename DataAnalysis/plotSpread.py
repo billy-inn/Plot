@@ -5,7 +5,7 @@ import numpy as np
 cnt = 22
 
 
-for (i,j) in [(32,4),(32,6),(64,4),(64,6),(128,4),(128,6)]:
+for (i,j) in [(128,4),(128,6)]:
 	fig,ax = plt.subplots()
 
 	fr = open("./statistic-naive/dim%dporder%dPhi0.1.txt" % (i,j),"r")
@@ -42,19 +42,19 @@ for (i,j) in [(32,4),(32,6),(64,4),(64,6),(128,4),(128,6)]:
 
 	ax.plot(ind,y,'^-',label='matrix')
 
-	fr = open("./statistic-gather/dim%dporder%dPhi0.1.txt" % (i,j),"r")
+#	fr = open("./statistic-gather/dim%dporder%dPhi0.1.txt" % (i,j),"r")
 
-	y = []
-	tmp = 1
+#	y = []
+#	tmp = 1
 
-	for line in fr.readlines():
-		arr = line.strip().split()
-		if tmp >= cnt: break
-		y.append(eval(arr[3]))
-		tmp = tmp + 1
-	fr.close()
+#	for line in fr.readlines():
+#		arr = line.strip().split()
+#		if tmp >= cnt: break
+#		y.append(eval(arr[3]))
+#		tmp = tmp + 1
+#	fr.close()
 
-	ax.plot(ind,y,'v-',label='gather')
+#	ax.plot(ind,y,'v-',label='gather')
 
 	def format(indx, pos=None):
 		thisind = np.clip(int(indx),0,N-1)
