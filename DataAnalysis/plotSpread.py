@@ -5,7 +5,7 @@ import numpy as np
 cnt = 22
 
 
-for (i,j) in [(32,4),(32,6),(64,4),(64,6)]:
+for (i,j) in [(32,4),(32,6),(64,4),(64,6),(128,4),(128,6)]:
 	fig,ax = plt.subplots()
 
 	fr = open("./statistic-naive/dim%dporder%dPhi0.1.txt" % (i,j),"r")
