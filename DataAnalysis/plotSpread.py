@@ -4,10 +4,11 @@ import numpy as np
 
 cnt = 22
 
-fig,ax = plt.subplots()
 
-for i in [32]:
-	fr = open("./statistic-naive/dim%dporder6Phi0.1.txt" % i,"r")
+for (i,j) in [(32,4),(32,6),(64,4),(64,6)]:
+	fig,ax = plt.subplots()
+
+	fr = open("./statistic-naive/dim%dporder%dPhi0.1.txt" % (i,j),"r")
 	
 	x = []
 	y = []
@@ -25,9 +26,9 @@ for i in [32]:
 	N = len(x)
 	ind = np.arange(N)
 
-	ax.plot(ind, y,'o-',label='naive dim = %d' % i)
+	ax.plot(ind, y,'o-',label='naive')
 
-	fr = open("./statistic-matrix/dim%dporder6Phi0.1.txt" % i,"r")
+	fr = open("./statistic-matrix/dim%dporder%dPhi0.1.txt" % (i,j),"r")
 
 	y = []
 	tmp = 1
@@ -39,9 +40,9 @@ for i in [32]:
 		tmp = tmp + 1
 	fr.close()
 
-	ax.plot(ind,y,'^-',label='matrix dim = %d' % i)
+	ax.plot(ind,y,'^-',label='matrix')
 
-	fr = open("./statistic-gather/dim%dporder6Phi0.1.txt" % i,"r")
+	fr = open("./statistic-gather/dim%dporder%dPhi0.1.txt" % (i,j),"r")
 
 	y = []
 	tmp = 1
@@ -53,17 +54,18 @@ for i in [32]:
 		tmp = tmp + 1
 	fr.close()
 
-	ax.plot(ind,y,'v-',label='gather dim = %d' % i)
+	ax.plot(ind,y,'v-',label='gather')
 
-def format(indx, pos=None):
-	thisind = np.clip(int(indx),0,N-1)
-	return x[thisind]
+	def format(indx, pos=None):
+		thisind = np.clip(int(indx),0,N-1)
+		return x[thisind]
 
-ax.xaxis.set_ticks([0.0,1.0,9.0,10.0,18.0,19.0,20.0])
-ax.xaxis.set_major_formatter(ticker.FuncFormatter(format))
-fig.autofmt_xdate()
-plt.title('spread timepass\n dim = 64 poder = 6 phi = 0.1')
-plt.xlabel('number of particles')
-plt.ylabel('timepass (ms)')
-plt.legend(loc = 'upper left')
-plt.show()
+	ax.xaxis.set_ticks([0.0,1.0,9.0,10.0,18.0,19.0,20.0])
+	ax.xaxis.set_major_formatter(ticker.FuncFormatter(format))
+	fig.autofmt_xdate()
+	plt.title('spread timepass\n dim = %d porder = %d' % (i,j))
+	plt.xlabel('number of particles')
+	plt.ylabel('timepass (ms)')
+	plt.legend(loc = 'upper left')
+	#plt.show()
+	plt.savefig('./figure/plotSpread-dim%d-porder%d.png' % (i,j))
